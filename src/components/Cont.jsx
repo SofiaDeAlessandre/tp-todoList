@@ -17,11 +17,11 @@ export default function Cont () {
 
   const [newTask, setNewTask] = useState("")
 
-    /*const [seleccion, setSeleccion] = React.useState('');
+    const [seleccion, setSeleccion] = React.useState('');
 
     const handleChange = (event) => {
       setSeleccion(event.target.value);
-    };*/
+    };
 
     function addTasks() {
       setTasks([...tasks, {id: crypto.randomUUID(), task: newTask}]);
@@ -46,16 +46,7 @@ export default function Cont () {
     return (
         <Container sx={{ backgroundColor: "#880e4f", height: "100vh", width: "100vh", padding: "16px" }}>
       <TextField fullWidth id="outlined-basic" placeholder="Ingrese una tarea" type="text" variant="outlined" sx={{margin: "10px"}} onChange={(e) =>setNewTask(e.target.value)} />
-      <Button variant="contained"sx={{ backgroundColor: "#880e4f", width: "20vh", padding: "16px", margin: "20px"}} onClick={addTasks} >Send</Button>
-     <Container> 
-      {tasks.map((task) => (
-        <Typography variant="h6" key={task.id}>{task.task}<Button onClick={() => removeTasks(task.id)}>X</Button><Button >seleccionar</Button></Typography>
-        ))}
-        </Container>
-      {/* <Box sx={{ minWidth: 120 }}>*/}
-      {/* <FormControl fullWidth >*/}
-      
-      {/*<InputLabel id="demo-simple-select-label">Seleccionar</InputLabel>
+      <InputLabel id="demo-simple-select-label">Seleccionar</InputLabel>
         <Select fullWidth  sx={{ minWidth: 120, margin: "10px" }}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
@@ -66,7 +57,17 @@ export default function Cont () {
           <MenuItem value={1}>Todas</MenuItem>
           <MenuItem value={2}>Completas</MenuItem>
           <MenuItem value={3}>Incompletas</MenuItem>
-    </Select>*/}
+    </Select>
+      <Button variant="contained"sx={{ backgroundColor: "#880e4f", width: "20vh", padding: "16px", margin: "20px"}} onClick={addTasks} >Send</Button>
+     <Container> 
+      {tasks.map((task) => (
+        <Typography variant="h6" key={task.id}>{task.task}<Button onClick={() => removeTasks(task.id)}>X</Button><Button >seleccionar</Button></Typography>
+        ))}
+        </Container>
+      {/* <Box sx={{ minWidth: 120 }}>*/}
+      {/* <FormControl fullWidth >*/}
+      
+      
      {/*</FormControl> */} 
     {/* </Box>*/}
     
