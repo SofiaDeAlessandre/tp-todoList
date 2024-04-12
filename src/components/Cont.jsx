@@ -18,7 +18,6 @@ export default function Cont () {
 
   const [newTask, setNewTask] = useState("")
 
-    const [seleccion, setSeleccion] = React.useState('');
 
     const handleChange = (event) => {
       setSeleccion(event.target.value);
