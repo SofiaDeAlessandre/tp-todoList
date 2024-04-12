@@ -11,6 +11,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 
 export default function Cont () {
+
   const [tasks, setTasks] = useState(
     JSON.parse(localStorage.getItem("tasks")) || []
   );
@@ -24,22 +25,24 @@ export default function Cont () {
     };
 
     function addTasks() {
-      setTasks([...tasks, {id: crypto.randomUUID(), task: newTask}]);
+      const taskAdd = {id: crypto.randomUUID(), task: newTask}
+      setTasks([...tasks, taskAdd ]);
       localStorage.setItem(
         "tasks", 
         JSON.stringify([
           ...tasks,
-           {id: crypto.randomUUID(), task: newTask},
+           taskAdd,
         ])
       )
     }
 
     function removeTasks(idTask) {
-      setTasks(tasks.filter((task) => task.id !== idTask ))
+      const taskFiltered = tasks.filter((task) => task.id !== idTask )
+      setTasks(taskFiltered)
       localStorage.setItem(
         "tasks", 
         JSON.stringify([
-          ...tasks,
+          taskFiltered
         ])
       )
     }
