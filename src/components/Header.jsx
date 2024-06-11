@@ -7,7 +7,7 @@ export default function Header () {
     return (
       <AppBar position="static" sx={{backgroundColor: "#880e4f"}}>
           <Typography variant="h1" color="inherit" component="div">
-            Todo List
+            ToDo List
           </Typography>
       </AppBar>
     )
