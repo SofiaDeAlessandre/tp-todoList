@@ -3,7 +3,7 @@ import { useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 
- import { EditTask } from "./EditTasks";
+import { EditTask } from "./EditTasks";
 import {
     Typography,
     FormControlLabel,
@@ -30,7 +30,7 @@ export function Task ( {id, task, tasks, setTasks}) {
     localStorage.setItem("tasks", JSON.stringify([taskFiltered]))}
     return (
         <>{isEdit ? (
-            <EditTask task={task} setIsEdit={setIsEdit} setTasks={setTasks} />
+           <EditTask task={task} setIsEdit={setIsEdit} setTasks={setTasks} tasks={tasks} />
           ) : (
             <Typography variant="h6" key={id}>
               {task}

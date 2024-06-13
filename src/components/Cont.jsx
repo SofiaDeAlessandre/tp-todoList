@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { Task } from "./Tasks"
- import { EditTask } from "./EditTasks";
+import { EditTask } from "./EditTasks";
 export default function Cont() {
   const [tasks, setTasks] = useState(
     JSON.parse(localStorage.getItem("tasks")) || setTasks(JSON.stringify(tasks))
