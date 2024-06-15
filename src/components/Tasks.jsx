@@ -30,7 +30,7 @@ export function Task ( {id, task, tasks, setTasks}) {
     localStorage.setItem("tasks", JSON.stringify([taskFiltered]))}
     return (
         <>{isEdit ? (
-           <EditTask task={task} setIsEdit={setIsEdit} setTasks={setTasks} tasks={tasks} />
+           <EditTask task={task} id={id} setIsEdit={setIsEdit} setTasks={setTasks} tasks={tasks} />
           ) : (
             <Typography variant="h6" key={id}>
               {task}
@@ -38,20 +38,20 @@ export function Task ( {id, task, tasks, setTasks}) {
           )}
           <Button onClick={() => removeTasks(id)}>
             <MdDelete
-              style={{ color: "#f8bbd0", width: "3vh", height: "3vh" }}
+              style={{ color: "#1769aa", width: "3vh", height: "3vh" }}
             />
           </Button>
           <Button>
             <FaEdit
               onClick={handleToggleEdit}
-              style={{ color: "#f8bbd0", width: "3vh", height: "3vh" }}
+              style={{ color: "#1769aa", width: "3vh", height: "3vh" }}
             />
           </Button>
           <FormControlLabel
             control={
               <Checkbox
                 color="success"
-                sx={{ "& .MuiSvgIcon-root": { fontSize: 30 } }}
+                sx={{ "& .MuiSvgIcon-root": { fontSize: 30 }, color: "#1769aa" }}
                 checked={isChecked}
                 onChange={handleCheckboxChange}
               />

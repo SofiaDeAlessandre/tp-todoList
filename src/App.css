@@ -3,6 +3,8 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background-image: url(https://www.fiftysounds.com/images/graphics/colorful-gradient-background-1039.jpg);
+  background-size: cover;
 }
 
 .logo {

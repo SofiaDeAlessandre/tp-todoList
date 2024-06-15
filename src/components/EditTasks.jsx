@@ -1,23 +1,26 @@
   import { TextareaAutosize, FormControl} from '@mui/base'; 
   import { Button } from '@mui/material';
+import { getTask, setTask } from './localStorage';
 
- 
-
-
-export function EditTask ({task, setIsEdit, tasks, setTasks}) {
+export function EditTask ({task, setIsEdit, tasks, setTasks, id}) {
 function handleCancelEdit () {
     setIsEdit(false)
 }
 console.log(tasks)
+console.log(id)
 function handleEditTask (e) {
     e.preventDefault()
     console.log(e.target.description.value)
     setIsEdit(false)
     
-   const newTaskArray = tasks.map(tasks => 
-    {return {
+   const newTaskArray = getTask().map((tasks) => {
+    if (tasks.id === id) {
+        return {
     ...tasks,
-    task: e.target.description.value
+     task: e.target.description.value
+}
+} else {
+    return tasks
 }
 })
 console.log(newTaskArray)
@@ -27,12 +30,12 @@ setTasks(newTaskArray)
 
     return(
         <>
-        <FormControl defaultValue="" onSubmit={handleEditTask} style={{ margin: "auto"}}> 
+        <form defaultValue="" onSubmit={handleEditTask} style={{ margin: "auto"}}>
         <TextareaAutosize defaultValue={task} name='description'/>
-        <Button style={{margin:"auto"}}>Editar</Button>
+        <Button type="submit" style={{margin:"auto"}}>Editar</Button>
         <Button variant='outline' style={{margin:"auto", ml:"10px"}} onClick={handleCancelEdit}>Cancelar</Button>
-        
-        </FormControl>
+
+        </form>
         </>
     )
 }

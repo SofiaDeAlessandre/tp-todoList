@@ -34,9 +34,9 @@ export default function Cont() {
   }
 
   return (
-    <Container
+    <Container key={tasks.id}
       sx={{
-        backgroundColor: "#880e4f",
+        backgroundColor: "transparent",
         height: "100vh",
         width: "100vh",
         padding: "16px",
@@ -72,7 +72,7 @@ export default function Cont() {
       <Button
         variant="contained"
         sx={{
-          backgroundColor: "#880e4f",
+          backgroundColor: "transparent",
           width: "20vh",
           padding: "16px",
           margin: "20px",
@@ -81,20 +81,20 @@ export default function Cont() {
       >
         Send
       </Button>
-      <Container key={tasks.id}>
+       <Container key={tasks.id}> 
         {/**CONSULTAR */}
 
         {tasks.length > 0 ? (
           tasks.map(({id, task}) => (
             <>
             
-              <Task setTasks={setTasks} id={id} task={task} tasks={tasks}/>
+              <Task setTasks={setTasks} key={task.id} id={id} task={task} tasks={tasks}/> 
             </>
           ))
         ) : (
           <Typography variant="h6">No hay tareas.</Typography>
         )}
-      </Container>
+       </Container> 
     </Container>
   );
 }
