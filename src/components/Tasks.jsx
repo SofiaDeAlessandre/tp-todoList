@@ -14,15 +14,24 @@ import {
 
 
 export function Task ( {id, task, tasks, setTasks}) {
-    const [isChecked, setIsChecked] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+  
 
-  const handleCheckboxChange = (event) => {
+  const handleCheckboxChange = (event, id) => {
     setIsChecked(event.target.checked);
-  };
+    // const newList = tasks.map((item)=> {
+    //      if(item.id===id){
+    //        item.complete=!item.complete
+    //      } return item
+    //    })
+    //    setTasks(newList)
+  }
   function handleToggleEdit() {
     setIsEdit(true);
   }
+
+
 
   function removeTasks(idTask) {
     const taskFiltered = tasks.filter((task) => task.id !== idTask);

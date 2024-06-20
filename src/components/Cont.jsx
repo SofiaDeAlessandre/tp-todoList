@@ -10,16 +10,30 @@ import {
 import { useState } from "react";
 import { Task } from "./Tasks"
 import { EditTask } from "./EditTasks";
+import { getTask } from "./localStorage";
+
 export default function Cont() {
   const [tasks, setTasks] = useState(
-    JSON.parse(localStorage.getItem("tasks")) || setTasks(JSON.stringify(tasks))
+    JSON.parse(localStorage.getItem("tasks")) || setTasks(JSON.stringify(tasks) )
   );
-  
+  const [filtered, setFiltered] = useState("all")
   const [newTask, setNewTask] = useState("");
-  const [seleccion, setSeleccion] = useState("");
-  
-  const handleChange = (event) => {
-    setSeleccion(event.target.value);
+
+  const handleChange = (e) => {
+
+    setFiltered(e.target.value)
+
+   const filteredTasks = tasks.filter((task)=> {
+      if ( e.target.value === "complete") {
+       return tasks.complete === true
+      } else if ( e.target.value === "incomplete"){
+return task.complete === false
+      } else {
+        return true
+      } 
+    })
+    //setTasks(filteredTasks)
+console.log(filteredTasks)
   };
 
   function addTasks() {
@@ -31,6 +45,7 @@ export default function Cont() {
     setTasks([...tasks, taskAdd]);
     localStorage.setItem("tasks", JSON.stringify([...tasks, taskAdd]));
     console.log(taskAdd);
+    console.log(tasks)
   }
 
   return (
@@ -42,7 +57,7 @@ export default function Cont() {
         padding: "16px",
       }}
     >
-      <Container sx={{ display: "flex" }}>
+      <Container sx={{ display: "flex", flexDirection: {xs:"column", md:"row"} }}>
         <TextField
           fullWidth
           id="outlined-basic"
@@ -50,7 +65,8 @@ export default function Cont() {
           type="text"
           variant="outlined"
           sx={{ margin: "10px" }}
-          onChange={(e) => setNewTask(e.target.value)}
+          onChange={(e) => setNewTask(e.target.value)
+          }
         />
         <Container>
           <Select
@@ -58,13 +74,13 @@ export default function Cont() {
             sx={{ minWidth: 120, margin: "10px" }}
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={seleccion}
             label="Seleccion"
             onChange={handleChange}
+            value={filtered}
           >
-            <MenuItem value={"all"}>Todas</MenuItem>
-            <MenuItem value={"complete"}>Completas</MenuItem>
-            <MenuItem value={"incomplete"}>Incompletas</MenuItem>
+            <MenuItem value="all" selected>Todas</MenuItem>
+            <MenuItem value="complete">Completas</MenuItem>
+            <MenuItem value="incomplete">Incompletas</MenuItem>
           </Select>
         </Container>
       </Container>
@@ -85,7 +101,7 @@ export default function Cont() {
         {/**CONSULTAR */}
 
         {tasks.length > 0 ? (
-          tasks.map(({id, task}) => (
+          tasks?.map(({id, task}) => (
             <>
             
               <Task setTasks={setTasks} key={task.id} id={id} task={task} tasks={tasks}/> 
