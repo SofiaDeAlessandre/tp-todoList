@@ -1,57 +1,45 @@
 import * as React from "react";
 import {
+  Button,
   Container,
-  TextField,
   MenuItem,
   Select,
+  TextField,
   Typography,
-  Button,
-  TextareaAutosize,
-  colors,
-  Input,
 } from "@mui/material";
 import { useState, useEffect } from "react";
-import { Task } from "./Tasks"
-import { EditTask } from "./EditTasks";
 import { getTask } from "./localStorage";
 import { setTaskLS } from "./localStorage";
-import { useForm } from "react-hook-form";
-import { testArray } from "./Data"; 
-import { styled } from "@mui/system"
+import { testArray } from "./Data";
+import { Task } from "./Tasks";
 
 export default function Cont() {
-  
-  const [tasks, setTasks] = useState(
-    getTask() || setTaskLS(testArray)
+  const [tasks, setTasks] = useState(getTask() || setTaskLS(testArray));
 
-  );
-  
-  const [filtered, setFiltered] = useState("all")
+  const [filtered, setFiltered] = useState("all");
   const [newTask, setNewTask] = useState("");
 
-useEffect(() => {
-  let filteredTasks = [];
-    if (filtered === "complete"){
-       filteredTasks = tasks.filter((task) => {
-        return task.complete
-      })
+  useEffect(() => {
+    let filteredTasks = [];
+    if (filtered === "complete") {
+      filteredTasks = tasks.filter((task) => {
+        return task.complete;
+      });
     } else {
-      if (filtered === "incomplete"){
-         filteredTasks = tasks.filter((task) => {
-          return !task.complete
-        })
-
+      if (filtered === "incomplete") {
+        filteredTasks = tasks.filter((task) => {
+          return !task.complete;
+        });
       } else {
-         filteredTasks = [...tasks]
+        filteredTasks = [...tasks];
       }
     }
-  console.log("FILTRADO", filteredTasks)
-    setTasks(filteredTasks)
-}, [filtered])
+    setTasks(filteredTasks);
+  }, [filtered]);
 
   const handleChange = (e) => {
-    setTasks(getTask())
-    setFiltered(e.target.value)
+    setTasks(getTask());
+    setFiltered(e.target.value);
   };
 
   function addTasks() {
@@ -62,12 +50,10 @@ useEffect(() => {
     };
     setTasks([...tasks, taskAdd]);
     localStorage.setItem("tasks", JSON.stringify([...tasks, taskAdd]));
-    console.log(taskAdd);
-    console.log(tasks)
-   }
-   
+  }
+
   return (
-    <Container 
+    <Container
       sx={{
         backgroundColor: "transparent",
         height: "100vh",
@@ -75,23 +61,44 @@ useEffect(() => {
         padding: "16px",
       }}
     >
-      <Container sx={{ display: "flex", flexDirection: {xs:"column", md:"row", lg: "column"} }}>
-
-         <TextField
-          required
-          inputProps={{
-            minLength: 5,
-            maxLength:50,
+      <Container
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", md: "column", lg: "column" },
+        }}
+      >
+        <Container sx={{ display: "flex",
+           flexDirection: {xs: "column", sm:"row", md: "row", lg: "row"} }}>
+          <TextField
+            fullWidth
+            required
+            inputProps={{
+              minLength: 5,
+              maxLength: 50,
             }}
-          id="outlined-basic"
-          placeholder="Ingrese una tarea. Máximo 50 caracteres"
-          type="text"
-          variant="outlined"
-          minRows={3}
-          sx={{ margin: "50px"}}
-          onChange={(e) => setNewTask(e.target.value)
-          }
-        /> 
+            id="outlined-basic"
+            placeholder="Ingrese una tarea. Máximo 50 caracteres"
+            type="text"
+            variant="outlined"
+            minRows={3}
+            sx={{ margin: "50px", ml:{xs:"10px"} }}
+            onChange={(e) => setNewTask(e.target.value)}
+          />
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: "transparent",
+              width: "full",
+              height: "20px",
+              padding: "25px",
+              margin: "auto",
+              margin: {xs:"auto", sm:"auto", md:"auto", lg:"auto"}
+            }}
+            onClick={addTasks}
+          >
+            Agregar
+          </Button>
+        </Container>
         <Container>
           <Select
             fullWidth
@@ -102,44 +109,37 @@ useEffect(() => {
             onChange={handleChange}
             value={filtered}
           >
-            <MenuItem value="all" selected>Todas</MenuItem>
+            <MenuItem value="all" selected>
+              Todas
+            </MenuItem>
             <MenuItem value="complete">Completas</MenuItem>
             <MenuItem value="incomplete">Incompletas</MenuItem>
           </Select>
         </Container>
       </Container>
 
-      <Button
-        variant="contained"
-        sx={{
-          backgroundColor: "transparent",
-          width: "20vh",
-          padding: "16px",
-          margin: "20px",
-        }}
-        onClick={addTasks}
-      >
-        Agregar tarea
-      </Button>
 
-
-        
-        
-
-        {tasks.length > 0 ? (
+      {tasks.length > 0 ? (
         <Container>
-          {tasks?.map(({id, task, complete}) => {
-            return(
-            <Task setTasks={setTasks} key={id} id={id} task={task} complete={complete} tasks={tasks} /> 
+          {tasks?.map(({ id, task, complete }) => {
+            return (
+              <Task
+                setTasks={setTasks}
+                key={id}
+                id={id}
+                task={task}
+                complete={complete}
+                tasks={tasks}
+              />
             );
-            
-          })
-          }
-          </Container>
-        ) : (
-          <Typography variant="h6">No hay tareas.</Typography>
-        )}
-        
+          })}
+        </Container>
+      ) : (
+        <Typography variant="h6">No hay tareas.</Typography>
+      )}
     </Container>
+
+
   );
 }
+
