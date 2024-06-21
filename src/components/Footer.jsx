@@ -4,8 +4,8 @@ import Typography from '@mui/material/Typography';
 export default function Footer (){
     return (
         <AppBar position="static" sx={{backgroundColor: "transparent"}}>
-          <Typography variant="subtitle1" color="#1769aa" component="div">
-            Hecho por Sofi
+          <Typography variant="subtitle1" color="#6a1b9a" component="div">
+            Hecho por Sofía ♥
           </Typography>
       </AppBar>
     )

@@ -8,9 +8,9 @@ export function getTask () {
 	}
 	return false;
 }
-// export function setTask (tasks) {
-//     localStorage.setItem("tasks", tasks)
-// }
-export const setTaskLS = (tasks) => {
-	localStorage.setItem("tasks", JSON.stringify(tasks));
-};
+export function setTaskLS (tasks) {
+    localStorage.setItem("tasks", JSON.stringify(tasks))
+}
+// export const setTaskLS = (tasks) => {
+// 	localStorage.setItem("tasks", JSON.stringify(tasks));
+// };

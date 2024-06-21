@@ -1,14 +1,13 @@
-
 import { useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
-
 import { EditTask } from "./EditTasks";
 import {
-    Typography,
+   Button,
+   Checkbox,
+    Container,
     FormControlLabel,
-    Checkbox,
-    Button,
+    Typography,
   } from "@mui/material";
 import { setTaskLS } from "./localStorage";
 
@@ -22,8 +21,6 @@ export function Task ( {id, task, complete, tasks, setTasks}) {
   const handleCheckboxChange = (event, id) => {
     setIsChecked(event.target.checked);
     console.log(event)
-    // const index = tasks.findIndex(id);
-    // tasks[index].complete =! tasks[index].complete;
     const newList = tasks.map((item)=> {
          if(item.id===id){
            item.complete=!item.complete
@@ -45,36 +42,38 @@ export function Task ( {id, task, complete, tasks, setTasks}) {
     localStorage.setItem("tasks", JSON.stringify([taskFiltered]))}
 
     return (
-        <>{isEdit ? (
+        <><Container sx={{display:"flex", justifyContent:"center", alignItems:"center", margin:"4px" }}>
+        {isEdit ? (
            <EditTask task={task} id={id} setIsEdit={setIsEdit} setTasks={setTasks} tasks={tasks} />
           ) : (
-            complete? (<Typography variant="h6" color="red" key={id}>
+            complete? (<Typography variant="h6" color="#6a1b9a" key={id}>
               {task}
             </Typography>) : (<Typography variant="h6" key={id}>
               {task}
             </Typography>)
             
           )}
+          
           <Button onClick={() => removeTasks(id)}>
             <MdDelete
-              style={{ color: "#1769aa", width: "3vh", height: "3vh" }}
+              style={{ color: "#9c27b0", width: "3vh", height: "3vh" }}
             />
           </Button>
           <Button>
             <FaEdit
               onClick={handleToggleEdit}
-              style={{ color: "#1769aa", width: "3vh", height: "3vh" }}
+              style={{ color: "#9c27b0", width: "3vh", height: "3vh" }}
             />
           </Button>
           <FormControlLabel
             control={
               <Checkbox
                 color="success"
-                sx={{ "& .MuiSvgIcon-root": { fontSize: 30 }, color: "#1769aa" }}
+                sx={{ "& .MuiSvgIcon-root": { fontSize: 30 }, color: "#9c27b0" }}
                 checked={isChecked}
                 onChange={(e) => handleCheckboxChange(e, id)}
               />
             }
-          /></>
+          /></Container></>
     )
 }

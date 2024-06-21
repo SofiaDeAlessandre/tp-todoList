@@ -6,6 +6,9 @@ import {
   Select,
   Typography,
   Button,
+  TextareaAutosize,
+  colors,
+  Input,
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { Task } from "./Tasks"
@@ -14,7 +17,7 @@ import { getTask } from "./localStorage";
 import { setTaskLS } from "./localStorage";
 import { useForm } from "react-hook-form";
 import { testArray } from "./Data"; 
-
+import { styled } from "@mui/system"
 
 export default function Cont() {
   
@@ -62,7 +65,7 @@ useEffect(() => {
     console.log(taskAdd);
     console.log(tasks)
    }
-
+   
   return (
     <Container 
       sx={{
@@ -72,17 +75,23 @@ useEffect(() => {
         padding: "16px",
       }}
     >
-      <Container sx={{ display: "flex", flexDirection: {xs:"column", md:"row"} }}>
-        <TextField
-          fullWidth
+      <Container sx={{ display: "flex", flexDirection: {xs:"column", md:"row", lg: "column"} }}>
+
+         <TextField
+          required
+          inputProps={{
+            minLength: 5,
+            maxLength:50,
+            }}
           id="outlined-basic"
-          placeholder="Ingrese una tarea"
+          placeholder="Ingrese una tarea. Máximo 50 caracteres"
           type="text"
           variant="outlined"
-          sx={{ margin: "10px" }}
+          minRows={3}
+          sx={{ margin: "50px"}}
           onChange={(e) => setNewTask(e.target.value)
           }
-        />
+        /> 
         <Container>
           <Select
             fullWidth
@@ -110,7 +119,7 @@ useEffect(() => {
         }}
         onClick={addTasks}
       >
-        Send
+        Agregar tarea
       </Button>
 
 
