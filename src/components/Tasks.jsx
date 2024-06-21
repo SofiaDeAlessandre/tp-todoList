@@ -10,22 +10,28 @@ import {
     Checkbox,
     Button,
   } from "@mui/material";
+import { setTaskLS } from "./localStorage";
 
 
 
-export function Task ( {id, task, tasks, setTasks}) {
+export function Task ( {id, task, complete, tasks, setTasks}) {
   const [isEdit, setIsEdit] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(complete);
   
 
   const handleCheckboxChange = (event, id) => {
     setIsChecked(event.target.checked);
-    // const newList = tasks.map((item)=> {
-    //      if(item.id===id){
-    //        item.complete=!item.complete
-    //      } return item
-    //    })
-    //    setTasks(newList)
+    console.log(event)
+    // const index = tasks.findIndex(id);
+    // tasks[index].complete =! tasks[index].complete;
+    const newList = tasks.map((item)=> {
+         if(item.id===id){
+           item.complete=!item.complete
+         } return item
+       })
+       setTasks(newList)
+       setTaskLS(newList)
+    console.log("id seleccionado", id)
   }
   function handleToggleEdit() {
     setIsEdit(true);
@@ -37,13 +43,17 @@ export function Task ( {id, task, tasks, setTasks}) {
     const taskFiltered = tasks.filter((task) => task.id !== idTask);
     setTasks(taskFiltered);
     localStorage.setItem("tasks", JSON.stringify([taskFiltered]))}
+
     return (
         <>{isEdit ? (
            <EditTask task={task} id={id} setIsEdit={setIsEdit} setTasks={setTasks} tasks={tasks} />
           ) : (
-            <Typography variant="h6" key={id}>
+            complete? (<Typography variant="h6" color="red" key={id}>
               {task}
-            </Typography>
+            </Typography>) : (<Typography variant="h6" key={id}>
+              {task}
+            </Typography>)
+            
           )}
           <Button onClick={() => removeTasks(id)}>
             <MdDelete
@@ -62,7 +72,7 @@ export function Task ( {id, task, tasks, setTasks}) {
                 color="success"
                 sx={{ "& .MuiSvgIcon-root": { fontSize: 30 }, color: "#1769aa" }}
                 checked={isChecked}
-                onChange={handleCheckboxChange}
+                onChange={(e) => handleCheckboxChange(e, id)}
               />
             }
           /></>

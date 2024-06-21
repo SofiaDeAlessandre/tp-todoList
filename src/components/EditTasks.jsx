@@ -1,6 +1,6 @@
   import { TextareaAutosize, FormControl} from '@mui/base'; 
   import { Button } from '@mui/material';
-import { getTask, setTask } from './localStorage';
+import { getTask, setTaskLS } from './localStorage';
 
 export function EditTask ({task, setIsEdit, tasks, setTasks, id}) {
 function handleCancelEdit () {
@@ -25,7 +25,7 @@ function handleEditTask (e) {
 })
 console.log(newTaskArray)
 setTasks(newTaskArray)
-
+setTaskLS(newTaskArray) 
 }
 
     return(

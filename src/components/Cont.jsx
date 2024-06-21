@@ -7,33 +7,48 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Task } from "./Tasks"
 import { EditTask } from "./EditTasks";
 import { getTask } from "./localStorage";
+import { setTaskLS } from "./localStorage";
+import { useForm } from "react-hook-form";
+import { testArray } from "./Data"; 
+
 
 export default function Cont() {
+  
   const [tasks, setTasks] = useState(
-    JSON.parse(localStorage.getItem("tasks")) || setTasks(JSON.stringify(tasks) )
+    getTask() || setTaskLS(testArray)
+
   );
+  
   const [filtered, setFiltered] = useState("all")
   const [newTask, setNewTask] = useState("");
 
-  const handleChange = (e) => {
+useEffect(() => {
+  let filteredTasks = [];
+    if (filtered === "complete"){
+       filteredTasks = tasks.filter((task) => {
+        return task.complete
+      })
+    } else {
+      if (filtered === "incomplete"){
+         filteredTasks = tasks.filter((task) => {
+          return !task.complete
+        })
 
-    setFiltered(e.target.value)
-
-   const filteredTasks = tasks.filter((task)=> {
-      if ( e.target.value === "complete") {
-       return tasks.complete === true
-      } else if ( e.target.value === "incomplete"){
-return task.complete === false
       } else {
-        return true
-      } 
-    })
-    //setTasks(filteredTasks)
-console.log(filteredTasks)
+         filteredTasks = [...tasks]
+      }
+    }
+  console.log("FILTRADO", filteredTasks)
+    setTasks(filteredTasks)
+}, [filtered])
+
+  const handleChange = (e) => {
+    setTasks(getTask())
+    setFiltered(e.target.value)
   };
 
   function addTasks() {
@@ -46,10 +61,10 @@ console.log(filteredTasks)
     localStorage.setItem("tasks", JSON.stringify([...tasks, taskAdd]));
     console.log(taskAdd);
     console.log(tasks)
-  }
+   }
 
   return (
-    <Container key={tasks.id}
+    <Container 
       sx={{
         backgroundColor: "transparent",
         height: "100vh",
@@ -97,20 +112,25 @@ console.log(filteredTasks)
       >
         Send
       </Button>
-       <Container key={tasks.id}> 
-        {/**CONSULTAR */}
+
+
+        
+        
 
         {tasks.length > 0 ? (
-          tasks?.map(({id, task}) => (
-            <>
+        <Container>
+          {tasks?.map(({id, task, complete}) => {
+            return(
+            <Task setTasks={setTasks} key={id} id={id} task={task} complete={complete} tasks={tasks} /> 
+            );
             
-              <Task setTasks={setTasks} key={task.id} id={id} task={task} tasks={tasks}/> 
-            </>
-          ))
+          })
+          }
+          </Container>
         ) : (
           <Typography variant="h6">No hay tareas.</Typography>
         )}
-       </Container> 
+        
     </Container>
   );
 }
