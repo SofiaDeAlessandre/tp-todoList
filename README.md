@@ -4,9 +4,9 @@ Project ToDo List for the Frontend Development Bootcamp in ADA ITW
 
 Description: ToDo List allows you to organize daily tasks, edit, delete and filter this by completes, incompletes or alls.
 
-Technologies: React
+Technologies: React, MaterialUI
 
-Authors: Sofía De Alessandre
+Author: Sofía De Alessandre
 
 June 2024
 

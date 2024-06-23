@@ -82,7 +82,7 @@ export default function Cont() {
             type="text"
             variant="outlined"
             minRows={3}
-            sx={{ margin: "50px", width:{xs:"250px", md:"100%",md:"100%", lg:"100%", xl:"100%"} }}
+            sx={{ margin: "50px", width:{xs:"250px", md:"100%", lg:"100%", xl:"100%"} }}
             onChange={(e) => setNewTask(e.target.value)}
           />
           <Button
