@@ -59,6 +59,7 @@ export default function Cont() {
         height: "100vh",
         width: "100vh",
         padding: "16px",
+        width: {xs:"100%", md: "100vh", lg: "100vh"}
       }}
     >
       <Container
@@ -81,7 +82,7 @@ export default function Cont() {
             type="text"
             variant="outlined"
             minRows={3}
-            sx={{ margin: "50px", ml:{xs:"10px"} }}
+            sx={{ margin: "50px", width:{xs:"250px", md:"100%",md:"100%", lg:"100%", xl:"100%"} }}
             onChange={(e) => setNewTask(e.target.value)}
           />
           <Button
@@ -102,7 +103,7 @@ export default function Cont() {
         <Container>
           <Select
             fullWidth
-            sx={{ minWidth: 120, margin: "10px" }}
+            sx={{ minWidth: 120, margin: "20px", width:{xs:"250px", md:"100%",md:"100%", lg:"100%", xl:"100%"} }}
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             label="Seleccion"
@@ -120,7 +121,7 @@ export default function Cont() {
 
 
       {tasks.length > 0 ? (
-        <Container>
+        <Container sx={{width:{xs:"250px", md:"100%",md:"100%", lg:"100%", xl:"100%"}}}>
           {tasks?.map(({ id, task, complete }) => {
             return (
               <Task
