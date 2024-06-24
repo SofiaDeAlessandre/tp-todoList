@@ -15,7 +15,6 @@ import { Task } from "./Tasks";
 
 export default function Cont() {
   const [tasks, setTasks] = useState(getTask() || setTaskLS(testArray));
-
   const [filtered, setFiltered] = useState("all");
   const [newTask, setNewTask] = useState("");
 
@@ -51,7 +50,7 @@ export default function Cont() {
     setTasks([...tasks, taskAdd]);
     localStorage.setItem("tasks", JSON.stringify([...tasks, taskAdd]));
   }
-
+  
   return (
     <Container
       sx={{
@@ -103,7 +102,7 @@ export default function Cont() {
         <Container>
           <Select
             fullWidth
-            sx={{ minWidth: 120, margin: "20px", width:{xs:"250px", md:"100%",md:"100%", lg:"100%", xl:"100%"} }}
+            sx={{ minWidth: 120, margin: "20px", width:{xs:"250px", md:"100%", lg:"100%", xl:"100%"} }}
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             label="Seleccion"
@@ -119,9 +118,8 @@ export default function Cont() {
         </Container>
       </Container>
 
-
-      {tasks.length > 0 ? (
-        <Container sx={{width:{xs:"250px", md:"100%",md:"100%", lg:"100%", xl:"100%"}}}>
+      {tasks?.length > 0 ? (
+        <Container sx={{width:{xs:"250px", md:"100%", lg:"100%", xl:"100%"}}}>
           {tasks?.map(({ id, task, complete }) => {
             return (
               <Task
@@ -139,8 +137,6 @@ export default function Cont() {
         <Typography variant="h6">No hay tareas.</Typography>
       )}
     </Container>
-
-
   );
 }
 
