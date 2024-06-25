@@ -55,7 +55,7 @@ export default function Cont() {
     <Container
       sx={{
         backgroundColor: "transparent",
-        height: "100vh",
+        minHeight: "85vh",
         width: "100vh",
         padding: "16px",
         width: {xs:"100%", md: "100vh", lg: "100vh"}
@@ -64,7 +64,7 @@ export default function Cont() {
       <Container
         sx={{
           display: "flex",
-          flexDirection: { xs: "column", md: "column", lg: "column" },
+          flexDirection: "column",
         }}
       >
         <Container sx={{ display: "flex",
@@ -92,7 +92,6 @@ export default function Cont() {
               height: "20px",
               padding: "25px",
               margin: "auto",
-              margin: {xs:"auto", sm:"auto", md:"auto", lg:"auto"}
             }}
             onClick={addTasks}
           >
