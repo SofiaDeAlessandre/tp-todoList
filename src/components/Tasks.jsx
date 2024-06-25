@@ -34,7 +34,7 @@ export function Task({ id, task, complete, tasks, setTasks }) {
   function removeTasks(idTask) {
     const taskFiltered = tasks.filter((task) => task.id !== idTask);
     setTasks(taskFiltered);
-    localStorage.setItem("tasks", JSON.stringify([taskFiltered]));
+    localStorage.setItem("tasks", JSON.stringify(taskFiltered));
   }
 
   return (

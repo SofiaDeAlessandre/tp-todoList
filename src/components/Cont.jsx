@@ -48,7 +48,7 @@ export default function Cont() {
       complete: false,
     };
     setTasks([...tasks, taskAdd]);
-    localStorage.setItem("tasks", JSON.stringify([...tasks, taskAdd]));
+    localStorage.setItem("tasks", JSON.stringify([...getTask(), taskAdd]));
   }
   
   return (
