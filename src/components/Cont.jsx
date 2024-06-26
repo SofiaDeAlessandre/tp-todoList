@@ -20,21 +20,22 @@ export default function Cont() {
 
   useEffect(() => {
     let filteredTasks = [];
-    if (tasks.length>0){
-    if (filtered === "complete") {
-      filteredTasks = tasks?.filter((task) => {
-        return task.complete;
-      });
-    } else {
-      if (filtered === "incomplete") {
+    if (tasks){
+      if (filtered === "complete") {
         filteredTasks = tasks?.filter((task) => {
-          return !task.complete;
+          return task.complete;
         });
       } else {
-        filteredTasks = [...tasks];
+        if (filtered === "incomplete") {
+          filteredTasks = tasks?.filter((task) => {
+            return !task.complete;
+          });
+        } else {
+          filteredTasks = [...tasks];
+        }
       }
-    }}
-    setTasks(filteredTasks);
+      setTasks(filteredTasks);
+  }
   }, [filtered]);
 
   const handleChange = (e) => {
@@ -57,7 +58,6 @@ export default function Cont() {
       sx={{
         backgroundColor: "transparent",
         minHeight: "85vh",
-        width: "100vh",
         padding: "16px",
         width: {xs:"100%", md: "100vh", lg: "100vh"}
       }}
