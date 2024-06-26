@@ -20,6 +20,7 @@ export default function Cont() {
 
   useEffect(() => {
     let filteredTasks = [];
+    if (tasks.length>0){
     if (filtered === "complete") {
       filteredTasks = tasks?.filter((task) => {
         return task.complete;
@@ -32,7 +33,7 @@ export default function Cont() {
       } else {
         filteredTasks = [...tasks];
       }
-    }
+    }}
     setTasks(filteredTasks);
   }, [filtered]);
 
