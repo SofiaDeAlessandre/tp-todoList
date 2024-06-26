@@ -21,12 +21,12 @@ export default function Cont() {
   useEffect(() => {
     let filteredTasks = [];
     if (filtered === "complete") {
-      filteredTasks = tasks.filter((task) => {
+      filteredTasks = tasks?.filter((task) => {
         return task.complete;
       });
     } else {
       if (filtered === "incomplete") {
-        filteredTasks = tasks.filter((task) => {
+        filteredTasks = tasks?.filter((task) => {
           return !task.complete;
         });
       } else {
