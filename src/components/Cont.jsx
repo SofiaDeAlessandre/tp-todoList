@@ -14,6 +14,8 @@ import { getTask } from "./localStorage";
 import { setTaskLS } from "./localStorage";
 import { testArray } from "./Data";
 import { Task } from "./Tasks";
+import { useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 
 export default function Cont() {
   const [tasks, setTasks] = useState(getTask() || setTaskLS(testArray));
@@ -45,15 +47,32 @@ export default function Cont() {
     setFiltered(e.target.value);
   };
 
-  function addTasks() {
+  // function addTasks() {
+  //   const taskAdd = {
+  //     id: crypto.randomUUID(),
+  //     task: newTask,
+  //     complete: false,
+  //   };
+  //   setTasks([...tasks, taskAdd]);
+  //   localStorage.setItem("tasks", JSON.stringify([...getTask(), taskAdd]));
+  // }
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm( {criteriaMode: "all"});
+  const onSubmit = (data) => {
+    console.log(data);
+
     const taskAdd = {
       id: crypto.randomUUID(),
-      task: newTask,
+      task: data.newTask,
       complete: false,
     };
     setTasks([...tasks, taskAdd]);
     localStorage.setItem("tasks", JSON.stringify([...getTask(), taskAdd]));
-  }
+  };
 
   return (
     <Box
@@ -69,35 +88,56 @@ export default function Cont() {
       }}
     >
       <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-        }}
+       sx={{
+            display: "flex",
+            flexDirection:"column",
+            gap: "20px",
+            marginBlock: "30px",
+          }}
       >
         <Box
           sx={{
             display: "flex",
-            gap: "20px",
+            gap: "50px",
+            justifyContent: "space-around",
             marginBlock: "30px",
-          }}
-        >
+            }}
+            >
+        <Box>
           <TextField
             fullWidth
             required
-            inputProps={{
-              minLength: 5,
-              maxLength: 50,
-            }}
             id="outlined-basic"
-            placeholder="Ingrese una tarea. Máximo 50 caracteres"
+            placeholder="Ingrese una tarea"
             type="text"
             variant="outlined"
             minRows={3}
             sx={{
-              width: "100%",
-            }}
+              width:"80%"
+             }}
             onChange={(e) => setNewTask(e.target.value)}
+            {...register("newTask", {
+              required: "La descripción de la tarea es obligatoria",
+              minLength: { value: 2, message: "la tarea es demasiado corta" },
+              maxLength: {
+                value: 100,
+                message: "la tarea es demasiado extensa",
+              },
+            })}
           />
+          <ErrorMessage
+          errors={errors}
+          name="newTask"
+          render={({ messages }) => {
+            console.log("messages", messages);
+           return( messages && 
+            Object.entries(messages).map(([type, message]) => (
+              <p key={type}>{message}</p>
+            ))
+          )
+          }}/>
+          
+           </Box> 
           <Button
             variant="contained"
             sx={{
@@ -109,7 +149,7 @@ export default function Cont() {
                 backgroundColor: "#6a1b9a",
               },
             }}
-            onClick={addTasks}
+            onClick={handleSubmit(onSubmit)} //tenia addTask
           >
             Agregar
           </Button>
