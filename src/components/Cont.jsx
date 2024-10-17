@@ -51,9 +51,8 @@ export default function Cont() {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm( {criteriaMode: "all"});
+  } = useForm({ criteriaMode: "all" });
   const onSubmit = (data) => {
-
     const taskAdd = {
       id: crypto.randomUUID(),
       task: data.newTask,
@@ -77,58 +76,56 @@ export default function Cont() {
       }}
     >
       <Box
-       sx={{
-            display: "flex",
-            flexDirection:"column",
-            gap: "20px",
-            marginBlock: "30px",
-          }}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+          marginBlock: "30px",
+        }}
       >
-        
         <Box
-  sx={{
-    display: "flex",
-    justifyContent: "space-between",
-    width: "100%",
-    alignItems: "start"
-  }}
->
-  <Box sx={{ flex: 1, marginRight: "20px" }}>
-          <TextField
-            fullWidth
-            required
-            id="outlined-basic"
-            placeholder="Ingrese una tarea"
-            type="text"
-            variant="outlined"
-            minRows={3}
-            
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+            alignItems: "start",
+          }}
+        >
+          <Box sx={{ flex: 1, marginRight: "20px" }}>
+            <TextField
+              fullWidth
+              required
+              id="outlined-basic"
+              placeholder="Ingrese una tarea"
+              type="text"
+              variant="outlined"
+              minRows={3}
               sx={{
-                width:"100%"
+                width: "100%",
               }}
-             
-            onChange={(e) => setNewTask(e.target.value)}
-            {...register("newTask", {
-              required: "La descripción de la tarea es obligatoria",
-              minLength: { value: 2, message: "la tarea es demasiado corta" },
-              maxLength: {
-                value: 100,
-                message: "la tarea es demasiado extensa",
-              },
-            })}
-          />
-          <ErrorMessage
-          errors={errors}
-          name="newTask"
-          render={({ messages }) => {
-           return( messages && 
-            Object.entries(messages).map(([type, message]) => (
-              <p key={type}>{message}</p>
-            ))
-          )
-          }}/>
-          
-           </Box> 
+              onChange={(e) => setNewTask(e.target.value)}
+              {...register("newTask", {
+                required: "La descripción de la tarea es obligatoria",
+                minLength: { value: 2, message: "la tarea es demasiado corta" },
+                maxLength: {
+                  value: 100,
+                  message: "la tarea es demasiado extensa",
+                },
+              })}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="newTask"
+              render={({ messages }) => {
+                return (
+                  messages &&
+                  Object.entries(messages).map(([type, message]) => (
+                    <p key={type}>{message}</p>
+                  ))
+                );
+              }}
+            />
+          </Box>
           <Button
             variant="contained"
             sx={{
