@@ -47,23 +47,12 @@ export default function Cont() {
     setFiltered(e.target.value);
   };
 
-  // function addTasks() {
-  //   const taskAdd = {
-  //     id: crypto.randomUUID(),
-  //     task: newTask,
-  //     complete: false,
-  //   };
-  //   setTasks([...tasks, taskAdd]);
-  //   localStorage.setItem("tasks", JSON.stringify([...getTask(), taskAdd]));
-  // }
-
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm( {criteriaMode: "all"});
   const onSubmit = (data) => {
-    console.log(data);
 
     const taskAdd = {
       id: crypto.randomUUID(),
@@ -95,15 +84,16 @@ export default function Cont() {
             marginBlock: "30px",
           }}
       >
+        
         <Box
-          sx={{
-            display: "flex",
-            gap: "50px",
-            justifyContent: "space-around",
-            marginBlock: "30px",
-            }}
-            >
-        <Box>
+  sx={{
+    display: "flex",
+    justifyContent: "space-between",
+    width: "100%",
+    alignItems: "start"
+  }}
+>
+  <Box sx={{ flex: 1, marginRight: "20px" }}>
           <TextField
             fullWidth
             required
@@ -112,9 +102,11 @@ export default function Cont() {
             type="text"
             variant="outlined"
             minRows={3}
-            sx={{
-              width:"80%"
-             }}
+            
+              sx={{
+                width:"100%"
+              }}
+             
             onChange={(e) => setNewTask(e.target.value)}
             {...register("newTask", {
               required: "La descripción de la tarea es obligatoria",
@@ -129,7 +121,6 @@ export default function Cont() {
           errors={errors}
           name="newTask"
           render={({ messages }) => {
-            console.log("messages", messages);
            return( messages && 
             Object.entries(messages).map(([type, message]) => (
               <p key={type}>{message}</p>
