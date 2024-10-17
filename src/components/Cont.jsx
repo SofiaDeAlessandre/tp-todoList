@@ -1,7 +1,9 @@
 import * as React from "react";
 import {
+  Box,
   Button,
-  Container,
+  FormControl,
+  InputLabel,
   MenuItem,
   Select,
   TextField,
@@ -20,7 +22,7 @@ export default function Cont() {
 
   useEffect(() => {
     let filteredTasks = [];
-    if (tasks){
+    if (tasks) {
       if (filtered === "complete") {
         filteredTasks = tasks?.filter((task) => {
           return task.complete;
@@ -35,7 +37,7 @@ export default function Cont() {
         }
       }
       setTasks(filteredTasks);
-  }
+    }
   }, [filtered]);
 
   const handleChange = (e) => {
@@ -52,24 +54,33 @@ export default function Cont() {
     setTasks([...tasks, taskAdd]);
     localStorage.setItem("tasks", JSON.stringify([...getTask(), taskAdd]));
   }
-  
+
   return (
-    <Container
+    <Box
       sx={{
         backgroundColor: "transparent",
-        minHeight: "85vh",
+        minHeight: {
+          xs: "calc(100vh - 78px - 68px)",
+          md: "calc(100vh - 115px - 108px)",
+        },
         padding: "16px",
-        width: {xs:"100%", md: "100vh", lg: "100vh"}
+        maxWidth: "800px",
+        margin: "auto",
       }}
     >
-      <Container
+      <Box
         sx={{
           display: "flex",
           flexDirection: "column",
         }}
       >
-        <Container sx={{ display: "flex",
-           flexDirection: {xs: "column", sm:"row", md: "row", lg: "row"} }}>
+        <Box
+          sx={{
+            display: "flex",
+            gap: "20px",
+            marginBlock: "30px",
+          }}
+        >
           <TextField
             fullWidth
             required
@@ -82,7 +93,9 @@ export default function Cont() {
             type="text"
             variant="outlined"
             minRows={3}
-            sx={{ margin: "50px", width:{xs:"250px", md:"100%", lg:"100%", xl:"100%"} }}
+            sx={{
+              width: "100%",
+            }}
             onChange={(e) => setNewTask(e.target.value)}
           />
           <Button
@@ -90,36 +103,51 @@ export default function Cont() {
             sx={{
               backgroundColor: "transparent",
               width: "full",
-              height: "20px",
-              padding: "25px",
-              margin: "auto",
+              backgroundColor: "#6a1b9a",
+              "&:hover": {
+                filter: "brightness(1.3)",
+                backgroundColor: "#6a1b9a",
+              },
             }}
             onClick={addTasks}
           >
             Agregar
           </Button>
-        </Container>
-        <Container>
-          <Select
-            fullWidth
-            sx={{ minWidth: 120, margin: "20px", width:{xs:"250px", md:"100%", lg:"100%", xl:"100%"} }}
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            label="Seleccion"
-            onChange={handleChange}
-            value={filtered}
-          >
-            <MenuItem value="all" selected>
-              Todas
-            </MenuItem>
-            <MenuItem value="complete">Completas</MenuItem>
-            <MenuItem value="incomplete">Incompletas</MenuItem>
-          </Select>
-        </Container>
-      </Container>
+        </Box>
+        <Box>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Filtrar</InputLabel>
+            <Select
+              fullWidth
+              sx={{
+                minWidth: 120,
+              }}
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Filtrar"
+              onChange={handleChange}
+              value={filtered}
+            >
+              <MenuItem value="all" selected>
+                Todas
+              </MenuItem>
+              <MenuItem value="complete">Completas</MenuItem>
+              <MenuItem value="incomplete">Incompletas</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+      </Box>
 
       {tasks?.length > 0 ? (
-        <Container sx={{width:{xs:"250px", md:"100%", lg:"100%", xl:"100%"}}}>
+        <Box
+          sx={{
+            boxShadow:
+              "0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);",
+            marginTop: "30px",
+            borderRadius: "5px",
+            padding: "20px",
+          }}
+        >
           {tasks?.map(({ id, task, complete }) => {
             return (
               <Task
@@ -132,11 +160,10 @@ export default function Cont() {
               />
             );
           })}
-        </Container>
+        </Box>
       ) : (
         <Typography variant="h6">No hay tareas.</Typography>
       )}
-    </Container>
+    </Box>
   );
 }
-

@@ -1,4 +1,4 @@
-import { TextareaAutosize } from "@mui/base";
+import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import { getTask, setTaskLS } from "./localStorage";
 
@@ -32,13 +32,28 @@ export function EditTask({ task, setIsEdit, tasks, setTasks, id }) {
         onSubmit={handleEditTask}
         style={{ margin: "auto" }}
       >
-        <TextareaAutosize defaultValue={task} name="description" />
-        <Button type="submit" style={{ margin: "auto" }}>
+        <TextField defaultValue={task} name="description" size="small" />
+        <Button
+          variant="outlined"
+          type="submit"
+          style={{
+            marginInline: "20px",
+            color: "#9c27b0",
+            borderColor: "#9c27b0",
+            height: "40px",
+          }}
+          size="medium"
+        >
           Editar
         </Button>
         <Button
-          variant="outline"
-          style={{ margin: "auto", ml: "10px" }}
+          variant="outlined"
+          style={{
+            height: "40px",
+            borderColor: "#000000cc",
+            color: "#000000cc",
+          }}
+          size="medium"
           onClick={handleCancelEdit}
         >
           Cancelar

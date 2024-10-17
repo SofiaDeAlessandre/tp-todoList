@@ -4,9 +4,9 @@ import { FaEdit } from "react-icons/fa";
 import { EditTask } from "./EditTasks";
 import { setTaskLS } from "./localStorage";
 import {
-  Button,
+  Box,
+  IconButton,
   Checkbox,
-  Container,
   FormControlLabel,
   Typography,
 } from "@mui/material";
@@ -39,52 +39,81 @@ export function Task({ id, task, complete, tasks, setTasks }) {
 
   return (
     <>
-      <Container
+      <Box
         sx={{
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "space-between",
           alignItems: "center",
-          margin: "4px",
+          padding: "10px 5px",
+          borderBottom: "1px solid",
+          borderColor: "#00000033",
         }}
       >
-        {isEdit ? (
-          <EditTask
-            task={task}
-            id={id}
-            setIsEdit={setIsEdit}
-            setTasks={setTasks}
-            tasks={tasks}
-          />
-        ) : complete ? (
-          <Typography variant="h6" color="#6a1b9a" key={id}>
-            {task}
-          </Typography>
-        ) : (
-          <Typography variant="h6" key={id}>
-            {task}
-          </Typography>
-        )}
-
-        <Button onClick={() => removeTasks(id)}>
-          <MdDelete style={{ color: "#9c27b0", width: "3vh", height: "3vh" }} />
-        </Button>
-        <Button>
-          <FaEdit
-            onClick={handleToggleEdit}
-            style={{ color: "#9c27b0", width: "3vh", height: "3vh" }}
-          />
-        </Button>
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="success"
-              sx={{ "& .MuiSvgIcon-root": { fontSize: 30 }, color: "#9c27b0" }}
-              checked={isChecked}
-              onChange={(e) => handleCheckboxChange(e, id)}
+        <Box>
+          {isEdit ? (
+            <EditTask
+              task={task}
+              id={id}
+              setIsEdit={setIsEdit}
+              setTasks={setTasks}
+              tasks={tasks}
             />
-          }
-        />
-      </Container>
+          ) : complete ? (
+            <Typography
+              variant="h6"
+              color="#6a1b9a"
+              key={id}
+              sx={{
+                fontSize: { xs: "0.9rem", md: "1.25rem" },
+                textAlign: "left",
+                width: "100%",
+              }}
+            >
+              {task}
+            </Typography>
+          ) : (
+            <Typography
+              variant="h6"
+              key={id}
+              sx={{
+                fontSize: { xs: "0.9rem", md: "1.25rem" },
+                textAlign: "left",
+                width: "100%",
+              }}
+            >
+              {task}
+            </Typography>
+          )}
+        </Box>
+        <Box>
+          <IconButton onClick={() => removeTasks(id)}>
+            <MdDelete
+              style={{ color: "#9c27b0", width: "25px", height: "25px" }}
+            />
+          </IconButton>
+          <IconButton onClick={handleToggleEdit}>
+            <FaEdit
+              style={{ color: "#9c27b0", width: "25px", height: "25px" }}
+            />
+          </IconButton>
+          <FormControlLabel
+            control={
+              <Checkbox
+                color="success"
+                sx={{
+                  "& .MuiSvgIcon-root": { fontSize: 30 },
+                  color: "#9c27b0",
+                  marginLeft: { xs: "0px", md: "40px" },
+                  padding: 0,
+                }}
+                checked={isChecked}
+                onChange={(e) => handleCheckboxChange(e, id)}
+              />
+            }
+            sx={{ margin: 0, padding: 0 }}
+          />
+        </Box>
+      </Box>
     </>
   );
 }
